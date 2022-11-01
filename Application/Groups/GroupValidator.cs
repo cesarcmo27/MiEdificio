@@ -8,8 +8,8 @@ namespace Application.Groups
         public GroupValidator()
         {
              RuleFor(x => x.Name).NotEmpty().WithMessage("El grupo no puede estar vacio");
-             RuleFor(x => x.Status).NotEmpty().WithMessage("El estado no puede estar vacio");
-                                  // .InclusiveBetween(0,1).WithMessage("no esta en rango");
+             RuleFor(x => x.Status).NotEmpty().WithMessage("El estado no puede estar vacio")
+                                   .InclusiveBetween(1,2).WithMessage("no esta en rango");
              
         }
     }

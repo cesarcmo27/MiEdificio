@@ -12,6 +12,16 @@ namespace Persistence
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Category> Categories { get; set; }
 
-        public DbSet<Group> Groups {get;set;}
+        public DbSet<Group> Groups { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<Group>()
+            .HasMany(c => c.Categories)
+            .WithOne(d => d.Group);
+            
+        }
     }
 }

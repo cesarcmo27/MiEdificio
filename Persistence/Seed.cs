@@ -25,18 +25,54 @@ namespace Persistence
                 var groups = new List<Group>{
                      new Group {
                        Id = Guid.NewGuid(),
-                    Name = "Gasto Mantenimiento",
-                    Status = 1
+                        Name = "Gasto Mantenimiento",
+                        Status = 1,
+                        Categories = new List<Category>{
+                            new Category{
+                                Id= Guid.NewGuid(),
+                                Name = "Arreglo de puerta principal",
+                                Status = 1
+                            }
+                        }
                     },
                     new Group {
                        Id = Guid.NewGuid(),
-                    Name = "Servicios",
-                    Status = 1
+                        Name = "Servicios",
+                        Status = 1,
+                        Categories = new List<Category>{
+                            new Category{
+                                Id= Guid.NewGuid(),
+                                Name = "Enel Bomba",
+                                Status = 1
+                            },
+                            new Category{
+                                Id= Guid.NewGuid(),
+                                Name = "Sedapal",
+                                Status = 1
+                            },
+                            new Category{
+                                Id= Guid.NewGuid(),
+                                Name = "Enel comun",
+                                Status = 1
+                            }
+                        }
                     },
                     new Group {
                        Id = Guid.NewGuid(),
                     Name = "Gasto Administrativos",
-                    Status = 1
+                    Status = 1,
+                    Categories = new List<Category>{
+                            new Category{
+                                Id= Guid.NewGuid(),
+                                Name = "Software",
+                                Status = 1
+                            },
+                            new Category{
+                                Id= Guid.NewGuid(),
+                                Name = "gasto administrativo",
+                                Status = 1
+                            }
+                        }
                     },
 
                 };
@@ -69,8 +105,8 @@ namespace Persistence
                         Name = "Sedapal",
                         Status = 1
                     },
-                }
-            }*/
+                };
+            };*/
 
             await context.SaveChangesAsync();
 

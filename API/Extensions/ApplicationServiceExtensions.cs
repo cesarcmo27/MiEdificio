@@ -1,5 +1,7 @@
 using Application.Core;
 using Application.Groups;
+using Application.Interfaces;
+using Infrastructure.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -21,6 +23,7 @@ namespace API.Extensions
 
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            services.AddScoped<IUserAccesor,UserAccesor>();
 
             return services;
         }

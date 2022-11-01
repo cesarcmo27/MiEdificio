@@ -9,5 +9,6 @@ namespace Domain
         public int Status { get; set; }
 
         public Group Group { get; set; }
+
     }
 }
