@@ -6,6 +6,9 @@ namespace Domain
         public string Name { get; set; }
         public int Status { get; set; }
         public int Floor { get; set; }
-        public string Group { get; set; }
+        public Building Building { get; set; }
+        public ICollection<Receipt> Receipts { get; set; }
+
+        
     }
 }

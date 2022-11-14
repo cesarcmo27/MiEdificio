@@ -1,4 +1,5 @@
 using Application.Categories;
+using Application.Excel;
 using Application.Groups;
 using AutoMapper;
 using Domain;
@@ -13,6 +14,9 @@ namespace Application.Core
             CreateMap<Group,GroupDTO>();
             
             CreateMap<Category, CategoryDTO>();
+           
+
+            CreateMap<DataApartmentResult,Domain.Apartment>();
             
         }
     }
