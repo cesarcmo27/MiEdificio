@@ -1,6 +1,7 @@
 using Application.Core;
 using Application.Groups;
 using Application.Interfaces;
+using Infrastructure.Excel;
 using Infrastructure.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ namespace API.Extensions
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddScoped<IUserAccesor,UserAccesor>();
+            services.AddScoped<IExcelAccessor,ExcelAccessor>();
 
             return services;
         }
