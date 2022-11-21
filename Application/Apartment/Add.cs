@@ -43,8 +43,18 @@ namespace Application.Apartment
                     return Result<Unit>.Failure("Error al leer excel");
                 }
 
+                foreach (var depa in list)
+                {
+                    var data = _context.Apartments.Where(emp => emp.Name == depa.Name);
+                    if(data.Any()){
+                         return Result<Unit>.Failure("Ya existe el departamento =>"+depa.Name);
+                    }
+
+                }
+
                 var apartmentData =_mapper.Map<List<Domain.Apartment>>(list);
 
+                
                 _context.Apartments.AddRange(apartmentData);
 
                 var result = await _context.SaveChangesAsync() > 0 ;

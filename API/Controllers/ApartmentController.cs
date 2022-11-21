@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Apartment;
+using Application.Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -12,15 +13,13 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult> Add([FromForm] Add.Command command)
         {
-            Console.WriteLine("llego");
             return HandleResult(await Mediator.Send(command));
         }
 
         [HttpGet]
-        public async Task<ActionResult> test()
+        public async Task<ActionResult> GetApartments([FromQuery] PagingParams param)
         {
-             Console.WriteLine("llego2");
-            return Ok("todo bien");
+            return HandleResult(await Mediator.Send(new List.Query{Params = param}));
         }
 
     }
