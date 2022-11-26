@@ -32,6 +32,7 @@ namespace Infrastructure.Excel
                     {
                         Name = row.GetCell(0).ToString(),
                         Floor = row.GetCell(1) == null ? 0 : Convert.ToInt32(row.GetCell(1).ToString()),
+                        Percentage = row.GetCell(2) == null ? 0 : Convert.ToDouble(row.GetCell(2).ToString()),
                     });
 
                 }

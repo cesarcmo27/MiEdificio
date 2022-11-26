@@ -19,7 +19,13 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult> GetApartments([FromQuery] PagingParams param)
         {
-            return HandleResult(await Mediator.Send(new List.Query{Params = param}));
+            return HandleResult(await Mediator.Send(new Application.Apartment.List.Query { Params = param }));
+        }
+        [HttpPut("{id}")]
+        public async Task<ActionResult> EditApartments(Guid id , ApartmentDTO apartment)
+        {
+            apartment.Id = id;
+            return HandleResult(await Mediator.Send(new Application.Apartment.Edit.Command { Apartment = apartment }));
         }
 
     }

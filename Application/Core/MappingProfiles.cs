@@ -16,7 +16,7 @@ namespace Application.Core
             
             CreateMap<Category, CategoryDTO>();
             CreateMap<Domain.Apartment, ApartmentDTO>();
-           
+            CreateMap< ApartmentDTO,Domain.Apartment>();
 
             CreateMap<DataApartmentResult,Domain.Apartment>();
             

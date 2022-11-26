@@ -1,46 +1,51 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Persistence;
+    
 
-namespace API
+var builder = WebApplication.CreateBuilder(args);
+
+//add services to container
+
+builder.Services.AddControllers().AddFluentValidation(config =>
 {
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            var hosts = CreateHostBuilder(args).Build();
+    config.RegisterValidatorsFromAssemblyContaining<Create>();
+});
+builder.Services.AddApplicationServices(builder.Configuration);
 
-            using var scope = hosts.Services.CreateScope();
+// configure http pipeline
+var app = builder.Build();
 
-            var services = scope.ServiceProvider;
+app.UseMiddleware<ExceptionMiddleware>();
+if (app.Environment.IsDevelopment())
+{
 
-            try
-            {
-                var context = services.GetRequiredService<DataContext>();
-                await context.Database.MigrateAsync();
-                await Seed.SeedData(context);
-            }
-            catch (Exception ex)
-            {
-                var looger = services.GetRequiredService<ILogger<Program>>();
-                looger.LogError(ex, "Error en la migracion");
-            }
-
-            await hosts.RunAsync();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPIv6 v1"));
 }
+
+app.UseHttpsRedirection();
+
+//  se remueve porque esta implicitmanete app.UseRouting();
+
+app.UseAuthorization();
+app.MapControllers();
+
+
+
+
+
+using var scope = app.Services.CreateScope();
+
+var services = scope.ServiceProvider;
+
+try
+{
+    var context = services.GetRequiredService<DataContext>();
+    await context.Database.MigrateAsync();
+    await Seed.SeedData(context);
+}
+catch (Exception ex)
+{
+    var looger = services.GetRequiredService<ILogger<Program>>();
+    looger.LogError(ex, "Error en la migracion");
+}
+
+await app.RunAsync();

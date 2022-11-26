@@ -9,5 +9,6 @@ namespace Application.Excel
     {
         public string Name { get; set; }
         public int Floor { get; set; }
+        public double Percentage { get; set; }
     }
 }

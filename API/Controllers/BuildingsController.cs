@@ -12,7 +12,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Building>>> GetBuildings()
         {
-            return await Mediator.Send(new List.Query());
+            return await Mediator.Send(new Application.Buildings.List.Query());
         }
 
         

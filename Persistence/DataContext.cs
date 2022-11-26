@@ -27,12 +27,14 @@ namespace Persistence
             .HasMany(c => c.Categories)
             .WithOne(d => d.Group);
 
-            builder.Entity<Receipt>(x => x.HasKey(a => new { a.PeriodId, a.ApartmentId }));
+            builder.Entity<PeriodCategory>(a => a.HasKey(b => new{b.PeriodId,b.CategoryId}));
+
+            builder.Entity<Receipt>(x => x.HasKey(a => new { a.PeriodId, a.CategoryId,a.ApartmentId }));
 
             builder.Entity<Receipt>()
-            .HasOne(u => u.Period)
+            .HasOne(u => u.PeriodCategory)
             .WithMany(a => a.Receipts)
-            .HasForeignKey(b => b.PeriodId);
+            .HasForeignKey(b => new{b.PeriodId,b.CategoryId} );
 
             builder.Entity<Receipt>()
             .HasOne(u => u.Apartment)
